@@ -72,7 +72,7 @@ function onScanSuccess(decodedText) {
         document.getElementById("result").innerText = `Código detectado: ${decodedText} - Salida Registrada`;
 
         // Enviar datos a Google Sheets
-        sendToGoogleSheets(decodedText, "Permitido", timestamp);
+        sendToGoogleSheets(decodedText, "Registrada", timestamp);
     } else {
         // Mostrar imagen de acceso denegado
         validationImage.src = "images/Denegado.png";
