@@ -67,7 +67,7 @@ function onScanSuccess(decodedText) {
 
     if (validCodes.includes(decodedText)) {
         // Mostrar imagen de acceso permitido
-        validationImage.src = "images/ok.png";
+        validationImage.src = "images/Permitido.png";
         validationImage.style.display = "block";
         document.getElementById("result").innerText = `Código detectado: ${decodedText} - Salida Registrada`;
 
