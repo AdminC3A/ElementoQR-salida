@@ -75,7 +75,7 @@ function onScanSuccess(decodedText) {
         sendToGoogleSheets(decodedText, "Registrada", timestamp);
     } else {
         // Mostrar imagen de acceso denegado
-        validationImage.src = "images/Denegado.png";
+        validationImage.src = "images/stop.png";
         validationImage.style.display = "block";
         document.getElementById("result").innerText = `Código detectado: ${decodedText} - ACCESO ILEGAL A REPORTAR`;
     }
