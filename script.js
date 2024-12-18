@@ -69,7 +69,7 @@ function onScanSuccess(decodedText) {
         // Mostrar imagen de acceso permitido
         validationImage.src = "images/Permitido.png";
         validationImage.style.display = "block";
-        document.getElementById("result").innerText = `Código detectado: ${decodedText} - Acceso Permitido`;
+        document.getElementById("result").innerText = `Código detectado: ${decodedText} - Salida Registrada`;
 
         // Enviar datos a Google Sheets
         sendToGoogleSheets(decodedText, "Permitido", timestamp);
@@ -77,7 +77,7 @@ function onScanSuccess(decodedText) {
         // Mostrar imagen de acceso denegado
         validationImage.src = "images/Denegado.png";
         validationImage.style.display = "block";
-        document.getElementById("result").innerText = `Código detectado: ${decodedText} - Acceso Denegado`;
+        document.getElementById("result").innerText = `Código detectado: ${decodedText} - ACCESO ILEGAL A REPORTAR`;
     }
 
     // Ocultar la imagen después de 5 segundos
