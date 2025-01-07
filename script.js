@@ -114,6 +114,9 @@ function onScanSuccess(decodedText) {
             Código detectado: ${decodedText} - ACCESO ILEGAL A REPORTAR...
         `;
 
+        // Enviar registro de acceso ilegal a Google Sheets
+        sendToGoogleSheets(decodedText, "Acceso Ilegal", timestamp);
+
         // Esperar 11 segundos antes de reanudar el escaneo
         setTimeout(() => {
             // Limpiar variables del último escaneo
