@@ -2,7 +2,7 @@
 let lastCameraId = null;
 
 // URL del Google Apps Script
-const postUrl = "https://script.google.com/macros/s/AKfycbxsDhrqZYF-6lR1aXjLava0nYg094xLlL-8IvPx8XCVL7b0bvULhshcYW9Wpxy9S91Y/exec";
+const postUrl = "https://script.google.com/macros/s/AKfycbyI9xkrwqgdoTdBrjcmJuLdZO-zf7BlTf6h9lIPqfxPJhKe1wpVkidbWEMlNEGBW_Y/exec";
 
 // Variable para almacenar la base de datos cargada
 let validCodes = [];
