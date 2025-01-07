@@ -2,7 +2,7 @@
 let lastCameraId = null;
 
 // URL del Google Apps Script
-const postUrl = "https://script.google.com/macros/s/AKfycbyI9xkrwqgdoTdBrjcmJuLdZO-zf7BlTf6h9lIPqfxPJhKe1wpVkidbWEMlNEGBW_Y/exec";
+const postUrl = "https://script.google.com/macros/s/AKfycbzSazM9Sfp-OxcF3u9perdUq3CWWLpqbjBO2xivc2Skf_CrmIjLTk9ujm7r3WBjxG_m/exec";
 
 // Variable para almacenar la base de datos cargada
 let validCodes = [];
@@ -27,7 +27,7 @@ async function loadDatabase() {
     }
 }
 
-// Función para enviar datos a Google Sheets
+// Función para enviar datos de salidas a Google Sheets
 function sendToGoogleSheets(qrCode, result, timestamp) {
     fetch(postUrl, {
         method: "POST",
@@ -36,6 +36,7 @@ function sendToGoogleSheets(qrCode, result, timestamp) {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
+            operation: "salida", // Operación específica para salidas
             qrCode: qrCode,
             result: result,
             timestamp: timestamp,
