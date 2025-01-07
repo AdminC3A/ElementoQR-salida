@@ -51,8 +51,16 @@ function sendToGoogleSheets(qrCode, result, timestamp) {
 }
 
 // Manejar el resultado exitoso del escaneo
+let isScanningPaused = false; // Bandera para pausar el escaneo
+
 function onScanSuccess(decodedText) {
+    if (isScanningPaused) {
+        console.log("Escaneo pausado. Esperando acción del usuario.");
+        return;
+    }
+
     const validationImage = document.getElementById("validation-image");
+    const resultContainer = document.getElementById("result");
     const currentTime = new Date().getTime();
     const timestamp = new Date().toISOString(); // Obtener el timestamp actual
 
@@ -62,30 +70,64 @@ function onScanSuccess(decodedText) {
         return;
     }
 
+    // Pausar el escaneo
+    isScanningPaused = true;
+
     // Actualizar el último código y la hora del escaneo
     lastScannedCode = decodedText;
     lastScanTime = currentTime;
 
-    if (validCodes.includes(decodedText)) {
+    // Normalizar valores para evitar problemas de formato
+    const normalizedText = decodedText.trim();
+    const normalizedValidCodes = validCodes.map(code => code.trim());
+
+    if (normalizedValidCodes.includes(normalizedText)) {
         // Mostrar imagen de acceso permitido
         validationImage.src = "images/Permitido.png";
         validationImage.style.display = "block";
-        document.getElementById("result").innerText = `Código detectado: ${decodedText} - Salida Registrada`;
+
+        resultContainer.innerHTML = `
+            Código detectado: ${decodedText} - Salida Permitida<br>
+            <button id="continueButton" style="font-size: 24px; padding: 20px 40px; margin-top: 10px;">Mochila revisada</button>
+        `;
 
         // Enviar datos a Google Sheets
         sendToGoogleSheets(decodedText, "Registrada", timestamp);
+
+        // Agregar evento para reanudar el escaneo
+        document.getElementById("continueButton").addEventListener("click", () => {
+            // Limpiar variables del último escaneo
+            lastScannedCode = null;
+            lastScanTime = 0;
+
+            validationImage.style.display = "none"; // Ocultar la imagen
+            resultContainer.innerHTML = ""; // Limpiar el resultado
+            isScanningPaused = false; // Reanudar el escaneo
+            restartScanner(); // Reiniciar el escáner
+        });
     } else {
-        // Mostrar imagen de acceso denegado
+        // Mostrar imagen de acceso ilegal
         validationImage.src = "images/Alerta.png";
         validationImage.style.display = "block";
-        document.getElementById("result").innerText = `Código detectado: ${decodedText} - ACCESO ILEGAL A REPORTAR`;
-    }
 
-    // Ocultar la imagen después de 5 segundos
-    setTimeout(() => {
-        validationImage.style.display = "none";
-    }, 5000);
+        resultContainer.innerHTML = `
+            Código detectado: ${decodedText} - ACCESO ILEGAL A REPORTAR...
+        `;
+
+        // Esperar 11 segundos antes de reanudar el escaneo
+        setTimeout(() => {
+            // Limpiar variables del último escaneo
+            lastScannedCode = null;
+            lastScanTime = 0;
+
+            validationImage.style.display = "none"; // Ocultar la imagen
+            resultContainer.innerHTML = ""; // Limpiar el resultado
+            isScanningPaused = false; // Reanudar el escaneo
+            restartScanner(); // Reiniciar el escáner
+        }, 11000);
+    }
 }
+
 
 // Manejar errores durante el escaneo
 function onScanError(errorMessage) {
