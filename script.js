@@ -2,7 +2,7 @@
 let lastCameraId = null;
 
 // URL del Google Apps Script
-const postUrl = "https://script.google.com/macros/s/AKfycbyIxZS2H8ByeehuhlgXIgH0BSF0gKSbKdTZYvOvCGy4Q6fA7UM5D6vRFn0qigEtMpkh/exec";
+const postUrl = "https://script.google.com/macros/s/AKfycbw-9ExK5QUvkeGd-9LPUehI_mbz61qblLdrQx0jKL1NWD5hnizA8r2bnGZKDU9yxctf/exec";
 
 // Variable para almacenar la base de datos cargada
 let validCodes = [];
@@ -196,5 +196,6 @@ loadDatabase().then(() => {
                 "Error al acceder a la cámara. Verifica los permisos.";
         });
 });
+
 
 
